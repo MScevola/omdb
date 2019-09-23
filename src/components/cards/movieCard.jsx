@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 
 import noImg from '../../assets/no-image-icon.png';
 
@@ -66,7 +65,7 @@ const Card = styled.div`
     }
 `
 
-const MovieCard = ({id, poster, title, type, year}) => {
+const MovieCard = ({ poster, title, type, year, onClick }) => {
     const typeStyles = classNames({
         'type': true,
         'movie': (type === 'movie'),
@@ -75,16 +74,14 @@ const MovieCard = ({id, poster, title, type, year}) => {
         'game': (type === 'game')
     })
     return(
-        <Card>
-            <Link to={`/movie/${id}`}>
-                <div className={typeStyles}>
-                    {type}
-                </div>
-                <div className="poster">
-                    { poster !== 'N/A' ? <img src={poster} alt={title}/> : <div className="shadow" /> }
-                </div>
-                <h3 className="title"><strong>{title}</strong> ({year})</h3>
-            </Link>
+        <Card onClick={onClick}>
+            <div className={typeStyles}>
+                {type}
+            </div>
+            <div className="poster">
+                { poster !== 'N/A' ? <img src={poster} alt={title}/> : <div className="shadow" /> }
+            </div>
+            <h3 className="title"><strong>{title}</strong> ({year})</h3>
         </Card>
     )
 }

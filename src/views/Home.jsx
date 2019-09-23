@@ -10,6 +10,7 @@ import { MovieCard } from '../components/cards';
 import { Wrapper } from '../components/wrapper';
 
 import { useStateValue } from '../contexts/omdbContext';
+import { MovieModal } from '../components/modals';
 
 const View = styled.div`
     position: relative;
@@ -55,6 +56,8 @@ const Home = () => {
     const [page, setPage] = useState(1)
     const [loadMore, setLoadMore] = useState(false)
     const [inputTerm, setInputTerm] = useState(term)
+    const [selectedMovie, setSelectedMovie] = useState([])
+    const [modalOpen, setModalOpen] = useState(false)
 
     const handleSearch = async term => {
         setPage(1)
@@ -86,6 +89,12 @@ const Home = () => {
         }
     }
 
+    const openMovieModal = async id => {
+        const getMovie = await AMDB_SERVICES.getMoviesById(id)
+        setSelectedMovie(getMovie)
+        setModalOpen(true)
+    }
+
     return(
         <View>
             <div className="search-container">
@@ -101,7 +110,7 @@ const Home = () => {
                             list.map((item, index) => {
                                 return(
                                     <li key={index}>
-                                        <MovieCard poster={item.Poster} title={item.Title} type={item.Type} year={item.Year} id={item.imdbID} />
+                                        <MovieCard poster={item.Poster} title={item.Title} type={item.Type} year={item.Year} onClick={() => openMovieModal(item.imdbID)} />
                                     </li>
                                 )
                             })
@@ -112,6 +121,7 @@ const Home = () => {
                     </div>
                 </Wrapper>
             </div>
+            <MovieModal movie={selectedMovie} open={modalOpen} onClick={() => setModalOpen(false)} />
         </View>
     )
 }
