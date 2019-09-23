@@ -14,6 +14,8 @@ const ButtonContainer = styled.label`
         position: relative;
         display: block;
         color: #424a60;
+        background: none;
+        border: none;
 
         &:focus{
             outline: none;
