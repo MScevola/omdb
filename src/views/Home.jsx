@@ -71,6 +71,7 @@ const Home = () => {
             response.totalResults > (list.length + response.Search.length) ? setLoadMore(true) : setLoadMore(false)
         }else{
             setList([])
+            setLoadMore(false)
         }
     }
 
