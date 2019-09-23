@@ -12,7 +12,8 @@ const List = styled.ul`
     li{
         position: relative;
         display: inline-block;
-        width: 105px;
+        width: 30%;
+        max-width: 105px;
         vertical-align: top;
         padding: 5px;
     }
