@@ -50,13 +50,6 @@ const Home = Loadable({
   }
 });
 
-const Movie = Loadable({
-  loader: () => import("./views/Movie"),
-  loading() {
-    return <Preloader />
-  }
-});
-
 function App() {
   const initialState = {
     term: ''
@@ -81,7 +74,6 @@ function App() {
         <BrowserRouter>
           <main id="main">
               <Switch>
-                <Route path="/movie/:id" component={Movie} />
                 <Route path="/" component={Home} />
                 <Route path="" component={Home} />
               </Switch>

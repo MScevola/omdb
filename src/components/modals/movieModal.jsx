@@ -1,17 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
-import * as AMDB_SERVICES from '../actions/index';
+import { CloseButton } from '../form';
 
-const View = styled.div`
-    position: relative;
+const Modal = styled.div`
+    position: fixed;
     display: block;
+    width: 100vw;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #dedede;
+    transform: translate(0, 100vh);
+    overflow: auto;
+    transition: all .3s ease-in-out;
+
+    &.open{
+        transform: none;
+    }
 
     header{
         position: relative;
         display: block;
-        padding: 20px;
+        padding: 60px 20px 20px;
         margin-bottom: 20px;
         border-radius: 0 0 8px 8px;
         background: #25ae88;
@@ -30,11 +42,34 @@ const View = styled.div`
             font-size: 12px;
             font-weight: 300;
         }
+
+        &.movie{
+            background: #25ae88;
+        }
+
+        &.series{
+            background: #ebba16;
+        }
+
+        &.episode{
+            background: #424a60;
+        }
+
+        &.game{
+            background: #1081e0;
+        }
+
+        .close-button{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
     }
 
     main{
         position: relative;
         display: block;
+        height: auto;
         padding: 20px;
         color: #666;
 
@@ -65,33 +100,23 @@ const View = styled.div`
     }
 `
 
-const Movie = ({ match }) => {
-    const [movie, setMovie] = useState([])
+const MovieModal = ({ movie, open, onClick }) => {
 
-    useEffect(() => {
-        let isMounted = true
+    const modalStyles = classNames({
+        'open': open
+    })
 
-        const fetchData = async () => {
-            const getMovie = await AMDB_SERVICES.getMoviesById(match.params.id)
-
-            if(isMounted)
-                setMovie(getMovie)
-        }
-
-        fetchData()
-
-        return () => {
-            isMounted = false
-        };
-    }, [match])
-
-        console.log(movie)
-
+    const headerStyles = classNames({
+        'movie': (movie.Type === 'movie'),
+        'series': (movie.Type === 'series'),
+        'episode': (movie.Type === 'episode'),
+        'game': (movie.Type === 'game')
+    })
 
     return(
-        <View>
-            <header>
-                <Link to='/'>Back</Link>
+        <Modal className={modalStyles}>
+            <header className={headerStyles}>
+                <div className="close-button"><CloseButton onClick={onClick} /></div>
                 <h1 className='title'>{movie.Title} ({movie.Year})</h1>
                 { movie.Language !== 'N/A' ? <span className="info">{movie.Language}</span> : '' }
                 { movie.Country !== 'N/A' ? <span className="info">{movie.Country}</span> : '' }
@@ -111,8 +136,8 @@ const Movie = ({ match }) => {
                     { movie.Production && movie.Production !== 'N/A' ? <span className="info"><strong>Production: </strong>{movie.Production}</span> : '' }
                 </div>
             </main>
-        </View>
+        </Modal>
     )
 }
 
-export default Movie;
+export default MovieModal;
