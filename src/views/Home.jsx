@@ -9,6 +9,8 @@ import { MovieList } from '../components/movieList';
 import { MovieCard } from '../components/cards';
 import { Wrapper } from '../components/wrapper';
 
+import { useStateValue } from '../contexts/omdbContext';
+
 const View = styled.div`
     position: relative;
     display: block;
@@ -48,14 +50,18 @@ const View = styled.div`
 `
 
 const Home = () => {
+    const [{ term }, dispatch] = useStateValue()
     const [list, setList] = useState([])
-    const [term, setTerm] = useState('')
     const [page, setPage] = useState(1)
     const [loadMore, setLoadMore] = useState(false)
+    const [inputTerm, setInputTerm] = useState(term)
 
     const handleSearch = async term => {
         setPage(1)
-        setTerm(term)
+        dispatch({
+            type: 'changeSearchTerm',
+            newSearchTerm: term
+        })
         const response = await AMDB_SERVICES.getMoviesBySearch(term, page)
         if (response.Response === 'True') {
             setList(response.Search)
@@ -85,7 +91,7 @@ const Home = () => {
             <div className="search-container">
                 <Wrapper>
                     <h1 className='page-title' >Open Movie Database</h1>
-                    <Input name='Search' type='text' onChange={e => handleOnChange(e.target.value)} placeholder='Digite um título' />
+                    <Input name='Search' type='text' value={inputTerm} onChange={e => setInputTerm(e.target.value) & handleOnChange(e.target.value)} placeholder='Digite um título' />
                 </Wrapper>
             </div>
             <div className="results-container">
