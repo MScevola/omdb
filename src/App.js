@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import styled from 'styled-components';
 
+import { StateProvider } from "./contexts/omdbContext";
+
 import './App.css';
 
 // import { Header } from './components/header';
@@ -49,17 +51,36 @@ const Home = Loadable({
 });
 
 function App() {
+  const initialState = {
+    term: ''
+  };
+  
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'changeSearchTerm':
+        return {
+          ...state,
+          term: action.newSearchTerm
+        };
+        
+      default:
+        return state;
+    }
+  };
+
   return (
-    <AMDB>
-      <BrowserRouter>
-        <main id="main">
-            <Switch>
-              <Route path="/" component={Home} />
-              <Route path="" component={Home} />
-            </Switch>
-        </main>
-      </BrowserRouter>
-    </AMDB>
+    <StateProvider initialState={initialState} reducer={reducer}>
+      <AMDB>
+        <BrowserRouter>
+          <main id="main">
+              <Switch>
+                <Route path="/" component={Home} />
+                <Route path="" component={Home} />
+              </Switch>
+          </main>
+        </BrowserRouter>
+      </AMDB>
+    </StateProvider>
   );
 }
 

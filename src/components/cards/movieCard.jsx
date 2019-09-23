@@ -65,7 +65,7 @@ const Card = styled.div`
     }
 `
 
-const MovieCard = ({id, poster, title, type, year}) => {
+const MovieCard = ({ poster, title, type, year, onClick }) => {
     const typeStyles = classNames({
         'type': true,
         'movie': (type === 'movie'),
@@ -74,7 +74,7 @@ const MovieCard = ({id, poster, title, type, year}) => {
         'game': (type === 'game')
     })
     return(
-        <Card>
+        <Card onClick={onClick}>
             <div className={typeStyles}>
                 {type}
             </div>

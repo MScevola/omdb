@@ -14,3 +14,15 @@ export async function getMoviesBySearch(term, page){
         throw err
     }
 }
+
+export async function getMoviesById(id){   
+    try {
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        const res = await  axios.get(`${AMDB_URL}?apikey=${API_KEY}&i=${id}`, {headers})
+        return res.data
+    }catch(err){
+        throw err
+    }
+}

@@ -9,6 +9,9 @@ import { MovieList } from '../components/movieList';
 import { MovieCard } from '../components/cards';
 import { Wrapper } from '../components/wrapper';
 
+import { useStateValue } from '../contexts/omdbContext';
+import { MovieModal } from '../components/modals';
+
 const View = styled.div`
     position: relative;
     display: block;
@@ -48,14 +51,20 @@ const View = styled.div`
 `
 
 const Home = () => {
+    const [{ term }, dispatch] = useStateValue()
     const [list, setList] = useState([])
-    const [term, setTerm] = useState('')
     const [page, setPage] = useState(1)
     const [loadMore, setLoadMore] = useState(false)
+    const [inputTerm, setInputTerm] = useState(term)
+    const [selectedMovie, setSelectedMovie] = useState([])
+    const [modalOpen, setModalOpen] = useState(false)
 
     const handleSearch = async term => {
         setPage(1)
-        setTerm(term)
+        dispatch({
+            type: 'changeSearchTerm',
+            newSearchTerm: term
+        })
         const response = await AMDB_SERVICES.getMoviesBySearch(term, page)
         if (response.Response === 'True') {
             setList(response.Search)
@@ -80,12 +89,18 @@ const Home = () => {
         }
     }
 
+    const openMovieModal = async id => {
+        const getMovie = await AMDB_SERVICES.getMoviesById(id)
+        setSelectedMovie(getMovie)
+        setModalOpen(true)
+    }
+
     return(
         <View>
             <div className="search-container">
                 <Wrapper>
                     <h1 className='page-title' >Open Movie Database</h1>
-                    <Input name='Search' type='text' onChange={e => handleOnChange(e.target.value)} placeholder='Digite um título' />
+                    <Input name='Search' type='text' value={inputTerm} onChange={e => setInputTerm(e.target.value) & handleOnChange(e.target.value)} placeholder='Digite um título' />
                 </Wrapper>
             </div>
             <div className="results-container">
@@ -95,7 +110,7 @@ const Home = () => {
                             list.map((item, index) => {
                                 return(
                                     <li key={index}>
-                                        <MovieCard poster={item.Poster} title={item.Title} type={item.Type} year={item.Year} id={item.imdbID} />
+                                        <MovieCard poster={item.Poster} title={item.Title} type={item.Type} year={item.Year} onClick={() => openMovieModal(item.imdbID)} />
                                     </li>
                                 )
                             })
@@ -106,6 +121,7 @@ const Home = () => {
                     </div>
                 </Wrapper>
             </div>
+            <MovieModal movie={selectedMovie} open={modalOpen} onClick={() => setModalOpen(false)} />
         </View>
     )
 }
