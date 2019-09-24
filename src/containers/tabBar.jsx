@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import profileIcon from '../assets/icon-profile.png';
 import searchIcon from '../assets/icon-search.png';
-import favoriteIcon from '../assets/icon-favorite.png';
+import favoriteIcon from '../assets/icon-favorites.png';
 
 const Container = styled.nav`
     position: fixed;
@@ -35,7 +34,6 @@ const TabBar = () => {
             <ul>
                 <li><Link to='/'><img src={searchIcon} alt="home"/></Link></li>
                 <li><Link to='/favorites'><img src={favoriteIcon} alt="favorites"/></Link></li>
-                <li><Link to='/logar'><img src={profileIcon} alt="logar"/></Link></li>
             </ul>
         </Container>
     )

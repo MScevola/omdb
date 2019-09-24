@@ -3,12 +3,21 @@ import axios from 'axios';
 const AMDB_URL = 'http://www.omdbapi.com/'
 const API_KEY = 'dff5ae43';
 
-export async function getMoviesBySearch(term, page){   
+export async function getMoviesBySearch(term, page, type){   
     try {
         const headers = {
             'Content-Type': 'application/json'
         };
-        const res = await  axios.get(`${AMDB_URL}?apikey=${API_KEY}&s=${term.replace(' ', '+')}&page=${page}`, {headers})
+
+        let search = `&s=${term.replace(' ', '+')}`
+
+        if(page)
+            search += `&page=${page}`
+        
+        if(type)
+            search += `&type=${type}`
+
+        const res = await  axios.get(`${AMDB_URL}?apikey=${API_KEY}${search}`, {headers})
         return res.data
     }catch(err){
         throw err

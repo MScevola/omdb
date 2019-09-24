@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const View = styled.div`
     position: relative;
+    background: #ededed;
 `
 
 const Profile = () => {

@@ -12,6 +12,9 @@ import { MovieList } from '../components/movieList';
 
 const View = styled.div`
     position: relative;
+    background: #ededed;
+    height: 100%;
+    overflow: auto;
 
     .title-container{
         position: relative;
@@ -35,7 +38,7 @@ const View = styled.div`
     .results-container{
         position: relative;
         display: block;
-        height: calc(100% - 166px);
+        height: calc(100% - 88px);
         overflow: auto;
     }
 `
@@ -73,7 +76,7 @@ const Favorites = () => {
                     </MovieList>
                 </Wrapper>
             </div>
-        <MovieModal movie={selectedMovie} open={modalOpen} onClick={() => setModalOpen(false)} />
+            <MovieModal movie={selectedMovie} open={modalOpen} onClick={() => setModalOpen(false)} />
         </View>
     )
 }
