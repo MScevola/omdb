@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Live Demo
-http://omdb-scevola.herokuapp.com/(http://omdb-scevola.herokuapp.com/)
+http://omdb-scevola.herokuapp.com/
 
 ## Available Scripts
 
