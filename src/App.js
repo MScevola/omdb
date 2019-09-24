@@ -9,16 +9,17 @@ import './App.css';
 
 // import { Header } from './components/header';
 import { Preloader } from './components/preloader';
+import TabBar from './containers/tabBar';
 
 const AMDB = styled('div')`
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: #dedede;
+  background-color: white;
 
   main{
     position: relative;
-    height: 100%;
+    height: calc(100% - 80px);
     overflow: auto;
 
     @media screen and (min-width: 1024px) {
@@ -50,17 +51,31 @@ const Home = Loadable({
   }
 });
 
+const Favorites = Loadable({
+  loader: () => import("./views/Favorites"),
+  loading() {
+    return <Preloader />
+  }
+});
+
+const Profile = Loadable({
+  loader: () => import("./views/Profile"),
+  loading() {
+    return <Preloader />
+  }
+});
+
 function App() {
   const initialState = {
-    term: ''
+    favorites: []
   };
   
   const reducer = (state, action) => {
     switch (action.type) {
-      case 'changeSearchTerm':
+      case 'addFavorite':
         return {
           ...state,
-          term: action.newSearchTerm
+          favorites: action.newFavorite
         };
         
       default:
@@ -74,10 +89,13 @@ function App() {
         <BrowserRouter>
           <main id="main">
               <Switch>
+                <Route path="/logar" component={Profile} />
+                <Route path="/favorites" component={Favorites} />
                 <Route path="/" component={Home} />
                 <Route path="" component={Home} />
               </Switch>
           </main>
+          <TabBar />
         </BrowserRouter>
       </AMDB>
     </StateProvider>
