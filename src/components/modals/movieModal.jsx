@@ -16,6 +16,7 @@ const Modal = styled.div`
     transform: translate(0, 100vh);
     overflow: auto;
     transition: all .3s ease-in-out;
+    z-index: 10;
 
     &.open{
         transform: none;
