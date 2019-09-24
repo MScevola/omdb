@@ -186,11 +186,14 @@ const Home = () => {
         setModalOpen(true)
     }
 
-    const addFavorite = (favorite) => {
-        dispatch({
-            type: 'addFavorite',
-            newFavorite: favorites.concat(favorite)
-        })
+    const addFavorite = (item) => {
+        const isFavorite = favorites.filter(favorite => (favorite.imdbID === item.imdbID)).length
+
+        if(!isFavorite)
+            dispatch({
+                type: 'addFavorite',
+                newFavorite: favorites.concat(item)
+            })
     }
 
     return(
