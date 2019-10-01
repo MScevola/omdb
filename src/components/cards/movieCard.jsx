@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 import noImg from '../../assets/no-image-icon.png';
 
@@ -74,16 +75,24 @@ const MovieCard = ({ poster, title, type, year, onClick }) => {
         'game': (type === 'game')
     })
     return(
-        <Card onClick={onClick}>
+        <Card onClick={onClick} data-test='movie-card'>
             <div className={typeStyles}>
                 {type}
             </div>
             <div className="poster">
-                { poster !== 'N/A' ? <img src={poster} alt={title}/> : <div className="shadow" /> }
+                { poster !== 'N/A' ? <img src={poster} alt={title} data-test='poster'/> : <div className="shadow" data-test='poster-canvas' /> }
             </div>
             <h3 className="title"><strong>{title}</strong> ({year})</h3>
         </Card>
     )
+}
+
+MovieCard.propTypes = {
+    poster: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    year: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
 }
 
 export default MovieCard;

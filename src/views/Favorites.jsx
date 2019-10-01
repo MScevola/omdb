@@ -8,7 +8,7 @@ import { useStateValue } from '../contexts/omdbContext';
 import { MovieCard } from '../components/cards';
 import { MovieModal } from '../components/modals';
 import { Wrapper } from '../components/wrapper';
-import { MovieList } from '../components/movieList';
+import MovieList from '../components/movieList';
 
 const View = styled.div`
     position: relative;
