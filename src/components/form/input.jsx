@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const InputContainer = styled.label`
     position: relative;
@@ -32,13 +33,20 @@ const InputContainer = styled.label`
     }
 `
 
-const Input = ({type, name, value, placeholder, onChange, onClick}) => {
+const Input = ({type, name, value, placeholder, onChange}) => {
     return(
-        <InputContainer>
+        <InputContainer data-test='component-input'>
             <span className="placeholder">{placeholder}</span>
-            <input type={type} name={name} value={value} onChange={onChange} onClick={onClick} />
+            <input type={type} name={name} value={value} onChange={onChange} />
         </InputContainer>
     )
+}
+
+Input.propTypes = {
+    type: PropTypes.string,
+    name: PropTypes.string,
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func
 }
 
 export default Input;
