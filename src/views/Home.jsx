@@ -5,12 +5,13 @@ import { debounce } from 'lodash';
 
 import * as AMDB_SERVICES from '../actions/index';
 
-import { MovieList } from '../components/movieList';
+import MovieList from '../components/movieList';
 import { MovieCard } from '../components/cards';
 import { Wrapper } from '../components/wrapper';
 import { MovieModal } from '../components/modals';
 import FavoriteButton from '../components/favoriteButton';
 
+import { ADD_FAVORITE } from '../actions/actionTypes';
 import { useStateValue } from '../contexts/omdbContext';
 
 import iconMovie from '../assets/icon-movie.jpg';
@@ -72,6 +73,11 @@ const View = styled.div`
             text-align: center;
             font-size: 24px;
             color: #f08048;
+
+            span{
+                color: #666;
+                font-size: 14px;
+            }
 
             ul{
                 position: relative;
@@ -191,7 +197,7 @@ const Home = () => {
 
         if(!isFavorite)
             dispatch({
-                type: 'addFavorite',
+                type: ADD_FAVORITE,
                 newFavorite: favorites.concat(item)
             })
     }
@@ -211,6 +217,7 @@ const Home = () => {
                         comunication && comunication !== 'initial' ? 
                         <span className="warning"><strong>"{term}"</strong>{comunication}</span> : 
                         <div className="filters">
+                            <span>O que deseja procurar?</span>
                             <ul>
                                 <li><button onClick={() => setType('movie') & handleSearch(term, 'movie')}><img src={iconMovie} alt="movies"/></button></li>
                                 <li><button onClick={() => setType('series') & handleSearch(term, 'series')}><img src={iconSerie} alt="series"/></button></li>

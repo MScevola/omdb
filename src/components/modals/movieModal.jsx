@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 import { CloseButton } from '../form';
 import { Wrapper } from '../wrapper';
@@ -116,7 +117,7 @@ const MovieModal = ({ movie, open, onClick }) => {
     })
 
     return(
-        <Modal className={modalStyles}>
+        <Modal className={modalStyles} data-test='component-modal'>
             <header className={headerStyles}>
                 <div className="close-button"><CloseButton onClick={onClick} /></div>
                 <Wrapper>
@@ -125,7 +126,7 @@ const MovieModal = ({ movie, open, onClick }) => {
                     { movie.Country !== 'N/A' ? <span className="info">{movie.Country}</span> : '' }
                     { movie.Genre !== 'N/A' ? <span className="info">{movie.Genre}</span> : '' }
                     <div className="img-container">
-                        { movie.Poster !== 'N/A' ? <img src={movie.Poster} alt={movie.Title}/> : '' }
+                        { movie.Poster !== 'N/A' ? <img src={movie.Poster} alt={movie.Title} data-test='bemloco' id={'bemloco'}/> : '' }
                     </div>
                     { movie.Awards !== 'N/A' ? <span className="info">{movie.Awards}</span> : '' }
                 </Wrapper>
@@ -144,6 +145,26 @@ const MovieModal = ({ movie, open, onClick }) => {
             </main>
         </Modal>
     )
+}
+
+MovieModal.propTypes = {
+    movie: PropTypes.arrayOf(PropTypes.shape({
+        Title: PropTypes.string,
+        Year: PropTypes.string,
+        Language: PropTypes.string,
+        Country: PropTypes.string,
+        Genre: PropTypes.string,
+        Poster: PropTypes.string,
+        Awards: PropTypes.string,
+        Website: PropTypes.string,
+        Plot: PropTypes.string,
+        Director: PropTypes.string,
+        Actors: PropTypes.string,
+        Writer: PropTypes.string,
+        Production: PropTypes.string
+    })).isRequired,
+    open: PropTypes.bool,
+    onClick: PropTypes.func
 }
 
 export default MovieModal;

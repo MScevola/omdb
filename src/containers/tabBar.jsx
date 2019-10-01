@@ -13,6 +13,7 @@ const Container = styled.nav`
     left: 0;
     bottom: 0;
     background: #2c5871;
+    z-index: 999;
 
     ul{
         position: relative;
