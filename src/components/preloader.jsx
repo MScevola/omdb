@@ -13,10 +13,10 @@ const PreloaderContainer = styled.div`
 const Preloader = () => {
 
     return(
-        <PreloaderContainer>
+        <PreloaderContainer data-test='preloader'>
             <img src={loaderGif} alt="loading..." />
         </PreloaderContainer>
     )
 }
 
-export { Preloader };
+export default Preloader;

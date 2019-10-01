@@ -3,12 +3,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import styled from 'styled-components';
 
+import { ADD_FAVORITE } from './actions/actionTypes';
 import { StateProvider } from "./contexts/omdbContext";
 
 import './App.css';
 
 // import { Header } from './components/header';
-import { Preloader } from './components/preloader';
+import Preloader from './components/preloader';
 import TabBar from './containers/tabBar';
 
 const AMDB = styled('div')`
@@ -72,7 +73,7 @@ function App() {
   
   const reducer = (state, action) => {
     switch (action.type) {
-      case 'addFavorite':
+      case ADD_FAVORITE:
         return {
           ...state,
           favorites: action.newFavorite

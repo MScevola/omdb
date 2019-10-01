@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const List = styled.ul`
     position: relative;
@@ -21,8 +22,12 @@ const List = styled.ul`
 
 const MovieList = ({children}) => {
     return(
-        <List>{children}</List>
+        <List data-test='movie-list'>{children}</List>
     )
 }
 
-export { MovieList };
+MovieList.propTypes = {
+    children: PropTypes.string.isRequired
+}
+
+export default MovieList;
