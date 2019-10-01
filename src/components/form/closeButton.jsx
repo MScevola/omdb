@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ButtonContainer = styled.label`
     position: relative;
@@ -25,10 +26,14 @@ const ButtonContainer = styled.label`
 
 const CloseButton = ({onClick}) => {
     return(
-        <ButtonContainer>
+        <ButtonContainer data-test='close-button'>
             <button onClick={onClick}>Close</button>
         </ButtonContainer>
     )
+}
+
+CloseButton.propTypes = {
+    onClick: PropTypes.func
 }
 
 export default CloseButton;
