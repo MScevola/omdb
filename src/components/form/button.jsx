@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ButtonContainer = styled.label`
     position: relative;
@@ -28,10 +29,15 @@ const ButtonContainer = styled.label`
 
 const Button = ({children, onClick}) => {
     return(
-        <ButtonContainer>
+        <ButtonContainer data-test='button'>
             <button onClick={onClick}>{children}</button>
         </ButtonContainer>
     )
+}
+
+Button.propTypes = {
+    children: PropTypes.string,
+    onClick: PropTypes.func
 }
 
 export default Button;

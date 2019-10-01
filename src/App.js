@@ -84,7 +84,7 @@ function App() {
   };
 
   return (
-    <StateProvider initialState={initialState} reducer={reducer}>
+    <StateProvider initialState={initialState} reducer={reducer} data-test='app'>
       <AMDB>
         <BrowserRouter>
           <main id="main">
