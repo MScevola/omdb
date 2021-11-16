@@ -207,7 +207,7 @@ const Home = () => {
             <div className="search-container">
                 <Wrapper>
                     <h1 className='page-title' >Open Movie Database</h1>
-                    <Input name='Search' type='text' value={inputTerm} onChange={e => setInputTerm(e.target.value) & handleOnChange(e.target.value)} placeholder='Digite um título' />
+                    <Input name='Search' type='text' value={inputTerm} onChange={e => setInputTerm(e.target.value) & handleOnChange(e.target.value)} placeholder='Try typing a movie title' />
                 </Wrapper>
             </div>
             <div className="results-container">
@@ -217,7 +217,7 @@ const Home = () => {
                         comunication && comunication !== 'initial' ? 
                         <span className="warning"><strong>"{term}"</strong>{comunication}</span> : 
                         <div className="filters">
-                            <span>O que deseja procurar?</span>
+                            <span>Filter by Movies, TV shows or Games</span>
                             <ul>
                                 <li><button onClick={() => setType('movie') & handleSearch(term, 'movie')}><img src={iconMovie} alt="movies"/></button></li>
                                 <li><button onClick={() => setType('series') & handleSearch(term, 'series')}><img src={iconSerie} alt="series"/></button></li>
