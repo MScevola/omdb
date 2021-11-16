@@ -58,7 +58,7 @@ const Favorites = () => {
         <View>
             <div className='title-container'>
                 <Wrapper>
-                    <h1 className='page-title' >Meus Favoritos</h1>
+                    <h1 className='page-title' >Favorites</h1>
                 </Wrapper>
             </div>
             <div className="results-container">
